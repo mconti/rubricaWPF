@@ -1,5 +1,4 @@
-﻿using conti.maurizio._4i.rubrica;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,20 +23,39 @@ namespace conti.maurizio._4i.rubrica
         public MainWindow()
         {
             InitializeComponent();
+        }
 
-            Contatto c = new Contatto();
-            c.Numero = 1;
-            c.Nome = "Maurizio";
-            c.Cognome = "Conti";
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Contatto[] Contatti = new Contatto[3];
 
-            Contatto[] Contatti = new Contatto[100];
-            Contatti[0] = c;
+            try
+            {
+                Contatto c = new Contatto();
+                c.Numero = 1;
+                c.Nome = "Maurizio";
+                c.Cognome = "Conti";
+                c.EMail = "maurizio.conti@ittsrimini.edu.it";
+                c.Telefono = "3337722";
+                c.CAP = "47923";
 
-            Contatti[1].Nome = "Riccardo";
-            Contatti[1].Cognome = "Bianchi";
+                Contatti[0] = c;
+       
+                Contatto c1 = new Contatto { Numero = 2, Nome = "Riccardo", Cognome = "Bianchi" };
+                Contatti[1] = c1;
+
+                Contatto c2 = new Contatto (  2, "Antonio", "Vallone" );
+                Contatti[2] = c2;
+
+
+            }
+            catch (Exception err)
+            {
+                MessageBox.Show("No no!!\n" + err.Message);
+            }
+
+            dgDati.ItemsSource = Contatti;
 
         }
     }
 }
-
-
