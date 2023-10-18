@@ -36,6 +36,19 @@ namespace conti.maurizio._4i.rubrica
         public string Cognome { get => _cognome; set => _cognome = value; }
 
         public Contatto() { }
+        
+        // Costruisce un Contatto, partendo da una riga CSV
+        public Contatto( string riga ) 
+        {
+            string[] campi = riga.Split(';');
+            if (campi.Length >= 4)
+            {
+                this.Nome = campi[0];
+                this.Cognome = campi[1];
+                this.Telefono = campi[2];
+                this.EMail = campi[3];
+            }
+        }
 
         public Contatto( int numero, string nome, string cognome )
         {

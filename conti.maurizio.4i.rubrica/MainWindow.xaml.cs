@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,8 +28,31 @@ namespace conti.maurizio._4i.rubrica
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Contatto[] Contatti = new Contatto[3];
+            try
+            {
+                Contatto[] Contatti = new Contatto[100];
+                for (int i = 0; i < Contatti.Length; i++)
+                    Contatti[i] = new Contatto();
+                
+                int idx = 0;
+                
+                StreamReader fin = new StreamReader("Dati.csv");
+                while( !fin.EndOfStream )
+                {
+                    string riga = fin.ReadLine();
+                    Contatto c = new Contatto(riga);
 
+                    Contatti[idx++] = c;
+                }
+
+                dgDati.ItemsSource = Contatti;
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show( "No no!!\n\n" + ex.Message );
+            }
+            
+            /*
             try
             {
                 Contatto c = new Contatto();
@@ -46,15 +70,13 @@ namespace conti.maurizio._4i.rubrica
 
                 Contatto c2 = new Contatto (  2, "Antonio", "Vallone" );
                 Contatti[2] = c2;
-
-
             }
             catch (Exception err)
             {
                 MessageBox.Show("No no!!\n" + err.Message);
             }
+            */
 
-            dgDati.ItemsSource = Contatti;
 
         }
     }
